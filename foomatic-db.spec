@@ -1,14 +1,6 @@
 %define version 3.0.2
-%define releasedate 20060906
-%define release %mkrel 1.%{releasedate}.3
-
-##### RPM PROBLEM WORKAROUNDS
-
-# Suppress automatically generated Requires for Perl libraries.
-#define _requires_exceptions perl\(.*\)
-
-#define _unpackaged_files_terminate_build       0 
-#define _missing_doc_files_terminate_build      0
+%define releasedate 20070627
+%define release %mkrel 1.%{releasedate}.1
 
 ##### GENERAL DEFINITIONS
 
@@ -26,27 +18,20 @@ BuildArchitectures: noarch
 
 ##### BUILDREQUIRES
 
-BuildRequires:	autoconf2.5 automake foomatic-db-engine cups cups-common
+BuildRequires:	autoconf automake foomatic-db-engine cups cups-common
 
 ##### FOOMATIC SOURCES
 
 # Foomatic packages
-Source:		http://www.linuxprinting.org/download/foomatic/%{name}-%{releasedate}.tar.bz2
-
-# Temporarily added the HP PSC 1510.
-#Source1:	HP-PSC_1510.xml.bz2
+Source:		http://www.linuxprinting.org/download/foomatic/%{name}-3.0-%{releasedate}.tar.gz
 
 # Perl script to clean up Manufacturer entries in the PPD files, so that
 # drivers are sorted by the printer manufacturer in the graphical frontends
 Source2:	cleanppd.pl.bz2
 
-
-
 ##### BUILD ROOT
 
 BuildRoot:	%_tmppath/%name-%version-%release-root
-
-
 
 ##### PACKAGE DESCRIPTIONS
 
@@ -70,22 +55,14 @@ information about the capabilities of near 1000 printers and around
 250 drivers. Especially it contains the information how and with which
 options the drivers have to be executed.
 
-
 %prep
-# remove old directory
-rm -rf $RPM_BUILD_DIR/%{name}-[0-9]*
-mkdir $RPM_BUILD_DIR/%{name}-%{releasedate}
 
 ##### FOOMATIC
 
 # Source trees for installation
 %setup -q -n %{name}-%{releasedate}
-#bzcat %{SOURCE1} > db/source/printer/HP-PSC_1510.xml
 
 %build
-
-cd $RPM_BUILD_DIR/%{name}-%{releasedate}
-
 # Makefile generation ("./make_configure" for CVS snapshots)
 ./make_configure
 # Fix for lib64 architectures, avoid patch
@@ -124,14 +101,9 @@ rm -f db/source/*/m2300w*.xml
 rm -f db/source/*/m2400w*.xml
 rm -f db/source/[do]*/*[Pp]touch*.xml
 
-
 # Delete drivers with empty command line prototype, they would give
 # unusable printer/driver combos.
 FOOMATICDB=`pwd` %{_sbindir}/foomatic-cleanupdrivers
-
-# Correct the default drivers of the printer entries to have a valid
-# default for every printer.
-#FOOMATICDB=`pwd` %{_sbindir}/foomatic-preferred-driver
 
 # Correct recommended driver "gimp-print" or "gutenprint", must be 
 # "gutenprint-ijs.5.0".
@@ -139,19 +111,12 @@ for f in db/source/printer/*.xml; do
 	perl -p -i -e 's:<driver>(gimp-|guten)print</driver>:<driver>gutenprint-ijs.5.0</driver>:' $f
 done
 
-# Fix HP's PostScript PPDs: "600x600x2dpi" is not Adobe-spec-conforming,
-# replace it by "1200x600dpi".
-#perl -p -i -e 's/600x600x2dpi/1200x600dpi/' db/source/PPD/*/*/*.ppd
-
 # Fixed default paper tray for HP Business Inkjet 2800.
 perl -p -i -e 's/(\*DefaultInputSlot:\s+)Auto/$1Tray1/' db/source/PPD/HP/business_inkjet/HP_Business_Inkjet_2800.ppd
 # Fixed device ID lines in the HP PPDs
 perl -p -i -e 's/1284DeviceId/1284DeviceID/' db/source/PPD/HP/*/*.ppd
 
 %install
-
-cd $RPM_BUILD_DIR/%{name}-%{releasedate}
-
 rm -rf %{buildroot}
 
 # Do not use "make" macro, as parallelized build of Foomatic does not
@@ -161,11 +126,6 @@ rm -rf %{buildroot}
 make	PREFIX=%{_prefix} \
         DESTDIR=%buildroot \
         install
-
-# Install documentation
-install -d %buildroot%{_docdir}/foomatic-db-%{version}
-cp README USAGE TODO \
-	%buildroot%{_docdir}/foomatic-db-%{version}
 
 # Uncompress Perl script for cleaning up the PPD files
 bzcat %{SOURCE2} > ./cleanppd.pl
@@ -178,32 +138,13 @@ find %buildroot%{_datadir}/foomatic/db/source/PPD -name "*.ppd" -exec ./cleanppd
 # CUPS 1.1.20 or newer
 for ppd in `find %buildroot%{_datadir}/foomatic/db/source/PPD -name "*.ppd.gz" -print`; do cupstestppd -q $ppd || (rm -f $ppd && echo "$ppd not Adobe-compliant. Deleted." && echo $ppd >> deletedppds-%{name}-%{version}-%{release}.txt); done
 
-
-
 ##### GENERAL STUFF
 
-# Correct permissions for all documentation files
-chmod -R a+rX %{buildroot}%{_docdir}
-chmod -R a-x %{buildroot}%{_docdir}/*/*
-chmod -R go-w %{buildroot}%{_docdir}
-chmod -R u+w %{buildroot}%{_docdir}
+# Correct permissions
 for f in %{buildroot}%{_datadir}/foomatic/db/source/*/*.xml; do
   chmod a-x $f
 done
 chmod a-x %{buildroot}%{_datadir}/foomatic/db/oldprinterids
-
-
-
-##### FILES
-
-%files -n foomatic-db
-%defattr(-,root,root)
-%docdir %{_docdir}/foomatic-db-%{version}
-%{_docdir}/foomatic-db-%{version}
-%_datadir/foomatic/db
-%_datadir/cups/model/foomatic-db-ppds
-
-
 
 ##### SCRIPTS
 
@@ -217,11 +158,15 @@ chmod a-x %{buildroot}%{_datadir}/foomatic/db/oldprinterids
 %postun
 /sbin/service cups condrestart > /dev/null 2>/dev/null || :
 
-
-
 ##### CLEAN UP
 
 %clean
 rm -rf %{buildroot}
 
+##### FILES
 
+%files -n foomatic-db
+%defattr(-,root,root)
+%doc README USAGE TODO
+%_datadir/foomatic/db
+%_datadir/cups/model/foomatic-db-ppds
