@@ -1,5 +1,5 @@
 %define version 3.0.2
-%define releasedate 20070627
+%define releasedate 20070820
 %define release %mkrel 1.%{releasedate}.1
 
 ##### GENERAL DEFINITIONS
@@ -14,7 +14,7 @@ Group:          System/Servers
 Url:            http://www.linuxprinting.org/
 Requires:       ghostscript, printer-filters, foomatic-db-engine
 Conflicts:	postscript-ppds <= 2006-1mdk
-BuildArchitectures: noarch
+BuildArch: noarch
 
 ##### BUILDREQUIRES
 
@@ -101,6 +101,51 @@ rm -f db/source/*/m2300w*.xml
 rm -f db/source/*/m2400w*.xml
 rm -f db/source/[do]*/*[Pp]touch*.xml
 
+# foo2zjs files
+rm -f \
+	db/source/printer/HP-Color_LaserJet_1500.xml \
+	db/source/printer/HP-Color_LaserJet_1600.xml \
+	db/source/printer/HP-Color_LaserJet_2600n.xml \
+	db/source/printer/HP-LaserJet_1000.xml \
+	db/source/printer/HP-LaserJet_1005.xml \
+	db/source/printer/HP-LaserJet_1020.xml \
+	db/source/printer/HP-LaserJet_1022.xml \
+	db/source/printer/HP-LaserJet_M1005_MFP.xml \
+	db/source/printer/Minolta-magicolor_2300_DL.xml \
+	db/source/printer/Minolta-magicolor_2430_DL.xml \
+	db/source/printer/Samsung-CLP-300.xml \
+	db/source/printer/Samsung-CLP-600.xml \
+	db/source/printer/Xerox-Phaser-6115MFP.xml
+
+# m2300w files
+rm -f \
+	db/source/printer/Minolta-magicolor_2300W.xml \
+	db/source/printer/Minolta-magicolor_2400W.xml
+
+# ptouch files
+rm -f \
+	db/source/printer/Brother-PT-1500PC.xml \
+	db/source/printer/Brother-PT-18R.xml \
+	db/source/printer/Brother-PT-1950.xml \
+	db/source/printer/Brother-PT-1950VP.xml \
+	db/source/printer/Brother-PT-1960.xml \
+	db/source/printer/Brother-PT-2420PC.xml \
+	db/source/printer/Brother-PT-2450DX.xml \
+	db/source/printer/Brother-PT-2500PC.xml \
+	db/source/printer/Brother-PT-2600.xml \
+	db/source/printer/Brother-PT-2610.xml \
+	db/source/printer/Brother-PT-3600.xml \
+	db/source/printer/Brother-PT-550A.xml \
+	db/source/printer/Brother-PT-9200DX.xml \
+	db/source/printer/Brother-PT-9200PC.xml \
+	db/source/printer/Brother-PT-9400.xml \
+	db/source/printer/Brother-PT-9500PC.xml \
+	db/source/printer/Brother-PT-9600.xml \
+	db/source/printer/Brother-PT-PC.xml \
+	db/source/printer/Brother-QL-500.xml \
+	db/source/printer/Brother-QL-550.xml \
+	db/source/printer/Brother-QL-650TD.xml
+
 # Delete drivers with empty command line prototype, they would give
 # unusable printer/driver combos.
 FOOMATICDB=`pwd` %{_sbindir}/foomatic-cleanupdrivers
@@ -165,7 +210,7 @@ rm -rf %{buildroot}
 
 ##### FILES
 
-%files -n foomatic-db
+%files
 %defattr(-,root,root)
 %doc README USAGE TODO
 %_datadir/foomatic/db
