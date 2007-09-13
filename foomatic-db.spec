@@ -2,38 +2,27 @@
 %define releasedate 20070820
 %define release %mkrel 1.%{releasedate}.1
 
-##### GENERAL DEFINITIONS
-
 Name:		foomatic-db
 Version:	%{version}
 Release:	%{release}
 Epoch:		1
-Summary:        Foomatic printer/driver database
-License:        GPL
-Group:          System/Servers
-Url:            http://www.linuxprinting.org/
-Requires:       ghostscript, printer-filters, foomatic-db-engine
-Conflicts:	postscript-ppds <= 2006-1mdk
-BuildArch: noarch
-
-##### BUILDREQUIRES
-
-BuildRequires:	autoconf automake foomatic-db-engine cups cups-common
-
-##### FOOMATIC SOURCES
-
-# Foomatic packages
+Summary:	Foomatic printer/driver database
+License:	GPL
+Group:		System/Servers
+Url:		http://www.linuxprinting.org/
 Source:		http://www.linuxprinting.org/download/foomatic/%{name}-3.0-%{releasedate}.tar.gz
-
 # Perl script to clean up Manufacturer entries in the PPD files, so that
 # drivers are sorted by the printer manufacturer in the graphical frontends
 Source2:	cleanppd.pl.bz2
-
-##### BUILD ROOT
-
+Requires:	foomatic-db-engine
+Conflicts:	postscript-ppds <= 2006-1mdk
+BuildArch:	noarch
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	cups
+BuildRequires:	cups-common
+BuildRequires:	foomatic-db-engine
 BuildRoot:	%_tmppath/%name-%version-%release-root
-
-##### PACKAGE DESCRIPTIONS
 
 %description
 Foomatic is a comprehensive, spooler-independent database of printers,
