@@ -22,6 +22,7 @@ BuildRequires:	automake
 BuildRequires:	cups
 BuildRequires:	cups-common
 BuildRequires:	foomatic-db-engine
+BuildRoot:	%_tmppath/%name-%version-%release-root
 
 %description
 Foomatic is a comprehensive, spooler-independent database of printers,
