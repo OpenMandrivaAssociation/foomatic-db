@@ -168,7 +168,14 @@ find %buildroot%{_datadir}/foomatic/db/source/PPD -name "*.ppd" -exec ./cleanppd
 
 # Remove PPDs which are not Adobe-compliant and therefore not working with
 # CUPS 1.1.20 or newer
-for ppd in `find %buildroot%{_datadir}/foomatic/db/source/PPD -name "*.ppd.gz" -print`; do cupstestppd -q $ppd || (rm -f $ppd && echo "$ppd not Adobe-compliant. Deleted." && echo $ppd >> deletedppds-%{name}-%{version}-%{release}.txt); done
+for ppd in `find %buildroot%{_datadir}/foomatic/db/source/PPD -name "*.ppd.gz"`
+do
+	cupstestppd -q $ppd || (
+		rm -f $ppd && \
+		echo "$ppd not Adobe-compliant. Deleted." && \
+		echo $ppd >> deletedppds-%{name}-%{version}-%{release}.txt
+	)
+done
 
 ##### GENERAL STUFF
 
