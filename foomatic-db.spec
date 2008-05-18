@@ -1,5 +1,5 @@
 %define version 3.0.2
-%define releasedate 20071218
+%define releasedate 20080518
 %define release %mkrel 1.%{releasedate}.1
 
 Name:		foomatic-db
@@ -7,7 +7,7 @@ Version:	%{version}
 Release:	%{release}
 Epoch:		1
 Summary:	Foomatic printer/driver database
-License:	GPL
+License:	GPLv2 and MIT
 Group:		System/Servers
 Url:		http://www.linuxprinting.org/
 Source:		http://www.linuxprinting.org/download/foomatic/%{name}-3.0-%{releasedate}.tar.gz
@@ -206,6 +206,6 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
-%doc README USAGE TODO
+%doc README USAGE TODO COPYING
 %_datadir/foomatic/db
 %_datadir/cups/model/foomatic-db-ppds
