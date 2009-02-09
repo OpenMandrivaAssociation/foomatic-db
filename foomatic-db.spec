@@ -1,6 +1,6 @@
 %define version 4.0
 %define releasedate 20090208
-%define release %mkrel 2.%{releasedate}.1
+%define release %mkrel 2.%{releasedate}.2
 
 Name:		foomatic-db
 Version:	%{version}
@@ -16,6 +16,7 @@ Source:		http://www.linuxprinting.org/download/foomatic/%{name}-%{version}-%{rel
 Source2:	cleanppd.pl.bz2
 Requires:	foomatic-db-engine
 Conflicts:	postscript-ppds <= 2006-1mdk
+Conflicts:	cups-drivers-foo2zjs < 0.0-0.20071109.7
 BuildArch:	noarch
 BuildRequires:	autoconf
 BuildRequires:	automake
