@@ -14,6 +14,7 @@ Source:		http://www.linuxprinting.org/download/foomatic/%{name}-%{version}-%{rel
 # Perl script to clean up Manufacturer entries in the PPD files, so that
 # drivers are sorted by the printer manufacturer in the graphical frontends
 Source2:	cleanppd.pl.bz2
+Patch0:		foomatic-db-20100218-cp_argument_list_too_long.diff
 Requires:	foomatic-db-engine
 Conflicts:	postscript-ppds <= 2006-1mdk
 Conflicts:	cups-drivers-foo2zjs < 0.0-0.20091014.1
@@ -49,6 +50,7 @@ options the drivers have to be executed.
 
 # Source trees for installation
 %setup -q -n %{name}-%{releasedate}
+%patch0 -p0
 
 %build
 # Makefile generation ("./make_configure" for CVS snapshots)
