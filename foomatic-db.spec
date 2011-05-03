@@ -1,6 +1,6 @@
 %define version 4.0
-%define releasedate 20101202
-%define release %mkrel 2.%{releasedate}.1
+%define releasedate 20101203
+%define release %mkrel 2.%{releasedate}.2
 
 Name:		foomatic-db
 Version:	%{version}
