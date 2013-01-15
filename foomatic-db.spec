@@ -1,16 +1,14 @@
-%define version 4.0
-%define releasedate 20110503
-%define release %mkrel 2.%{releasedate}.3
+%define releasedate 20130115
 
 Name:		foomatic-db
-Version:	%{version}
-Release:	%{release}
+Version:	4.0
+Release:	2.%releasedate.1
 Epoch:		1
 Summary:	Foomatic printer/driver database
 License:	GPLv2 and MIT
 Group:		System/Servers
-Url:		http://www.linuxprinting.org/
-Source:		http://www.linuxprinting.org/download/foomatic/%{name}-%{version}-%{releasedate}.tar.gz
+Url:		http://www.linuxfoundation.org/collaborate/workgroups/openprinting/databasefoomatic
+Source0:	http://www.openprinting.org/download/foomatic/%{name}-%{version}-%{releasedate}.tar.gz
 # Perl script to clean up Manufacturer entries in the PPD files, so that
 # drivers are sorted by the printer manufacturer in the graphical frontends
 Source2:	cleanppd.pl.bz2
@@ -24,7 +22,6 @@ BuildRequires:	automake
 BuildRequires:	cups
 BuildRequires:	cups-common
 BuildRequires:	foomatic-db-engine
-BuildRoot:	%_tmppath/%name-%version-%release-root
 
 %description
 Foomatic is a comprehensive, spooler-independent database of printers,
@@ -50,7 +47,7 @@ options the drivers have to be executed.
 
 # Source trees for installation
 %setup -q -n %{name}-%{releasedate}
-%patch0 -p0
+%apply_patches
 
 %build
 # Makefile generation ("./make_configure" for CVS snapshots)
@@ -210,7 +207,9 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root)
 %doc README USAGE COPYING
+%dir %_datadir/foomatic
 %_datadir/foomatic/db
+%_datadir/foomatic/xmlschema
 %_datadir/cups/model/foomatic-db-ppds
 
 
