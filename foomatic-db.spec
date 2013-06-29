@@ -46,7 +46,7 @@ options the drivers have to be executed.
 # Makefile generation ("./make_configure" for CVS snapshots)
 ./make_configure
 # Fix for lib64 architectures, avoid patch
-sed -i -e "s@/usr/lib/(cups|pdq|ppr)@%{_libdir}/\1@g" configure
+perl -pi -e "s@/usr/lib/(cups|pdq|ppr)@%{_libdir}/\1@g" configure
 
 # We do not compress the PPDs now, so that we can do a clean-up
 %configure --disable-gzip-ppds
