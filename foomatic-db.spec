@@ -133,11 +133,11 @@ FOOMATICDB=`pwd` %{_sbindir}/foomatic-cleanupdrivers
 # Correct recommended driver "gimp-print" or "gutenprint", must be 
 # "gutenprint-ijs.5.0".
 for f in db/source/printer/*.xml; do
-	sed  -i -e 's:<driver>(gimp-|guten)print</driver>:<driver>gutenprint-ijs.5.0</driver>:' $f
+	perl  -pi -e 's:<driver>(gimp-|guten)print</driver>:<driver>gutenprint-ijs.5.0</driver>:' $f
 done
 
 # Fixed default paper tray for HP Business Inkjet 2800.
-sed  -i -e 's/(\*DefaultInputSlot:\s+)Auto/$1Tray1/' db/source/PPD/HP/business_inkjet/HP_Business_Inkjet_2800.ppd
+perl  -pi -e 's/(\*DefaultInputSlot:\s+)Auto/$1Tray1/' db/source/PPD/HP/business_inkjet/HP_Business_Inkjet_2800.ppd
 # Fixed device ID lines in the HP PPDs
 sed  -i -e 's/1284DeviceId/1284DeviceID/' db/source/PPD/HP/*/*.ppd
 
