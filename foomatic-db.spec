@@ -138,8 +138,6 @@ done
 
 # Fixed default paper tray for HP Business Inkjet 2800.
 perl  -pi -e 's/(\*DefaultInputSlot:\s+)Auto/$1Tray1/' db/source/PPD/HP/business_inkjet/HP_Business_Inkjet_2800.ppd
-# Fixed device ID lines in the HP PPDs
-sed  -i -e 's/1284DeviceId/1284DeviceID/' db/source/PPD/HP/*/*.ppd
 
 %install
 # Do not use "make" macro, as parallelized build of Foomatic does not
