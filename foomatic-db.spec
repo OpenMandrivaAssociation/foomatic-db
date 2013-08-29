@@ -4,7 +4,7 @@ Summary:	Foomatic printer/driver database
 Name:		foomatic-db
 Epoch:		1
 Version:	4.0
-Release:	2.%releasedate.1
+Release:	2.%releasedate.2
 License:	GPLv2 and MIT
 Group:		System/Servers
 Url:		http://www.linuxfoundation.org/collaborate/workgroups/openprinting/databasefoomatic
