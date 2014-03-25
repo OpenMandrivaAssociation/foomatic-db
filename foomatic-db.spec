@@ -1,4 +1,4 @@
-%define releasedate 20140125
+%define releasedate 20140325
 
 Summary:	Foomatic printer/driver database
 Name:		foomatic-db
