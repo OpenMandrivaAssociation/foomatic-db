@@ -1,4 +1,4 @@
-%define releasedate 20150819
+%define releasedate 20160314
 
 Summary:	Foomatic printer/driver database
 Name:		foomatic-db
@@ -189,4 +189,3 @@ chmod a-x %{buildroot}%{_datadir}/foomatic/db/oldprinterids
 %{_datadir}/foomatic/db
 %{_datadir}/foomatic/xmlschema
 %{_datadir}/cups/model/foomatic-db-ppds
-
