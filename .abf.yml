@@ -1,3 +1,5 @@
+removed_sources:
+  foomatic-db-4.0-20160314.tar.xz: 5d36626bacd3ff48f6227acf0c7ba0a5ea5e0c61
 sources:
   cleanppd.pl.bz2: 893a7babf834e5e1d928739f90784a3b9651c527
-  foomatic-db-4.0-20160314.tar.xz: 5d36626bacd3ff48f6227acf0c7ba0a5ea5e0c61
+  foomatic-db-4.0-20180604.tar.xz: 0f527ba76772b7b465554c7fabe31053e542dce9
