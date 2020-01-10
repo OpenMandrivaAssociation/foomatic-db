@@ -40,7 +40,7 @@ options the drivers have to be executed.
 
 %prep
 %setup -qn %{name}-%{releasedate}
-%apply_patches
+%autopatch -p1
 
 %build
 # Makefile generation ("./make_configure" for CVS snapshots)
