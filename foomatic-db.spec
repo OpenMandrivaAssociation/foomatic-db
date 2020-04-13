@@ -1,4 +1,4 @@
-%define releasedate 20180604
+%define releasedate 20200413
 
 Summary:	Foomatic printer/driver database
 Name:		foomatic-db
@@ -8,7 +8,7 @@ Release:	2.%releasedate.1
 License:	GPLv2 and MIT
 Group:		System/Servers
 Url:		http://www.linuxfoundation.org/collaborate/workgroups/openprinting/databasefoomatic
-Source0:	http://www.openprinting.org/download/foomatic/%{name}-%{version}-%{releasedate}.tar.xz
+Source0:	https://openprinting.org/download/foomatic/%{name}-%{version}-%{releasedate}.tar.xz
 # Perl script to clean up Manufacturer entries in the PPD files, so that
 # drivers are sorted by the printer manufacturer in the graphical frontends
 Source2:	cleanppd.pl.bz2
