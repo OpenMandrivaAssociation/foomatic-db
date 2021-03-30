@@ -1,4 +1,4 @@
-%define releasedate 20201203
+%define releasedate 20210330
 
 Summary:	Foomatic printer/driver database
 Name:		foomatic-db
@@ -12,6 +12,23 @@ Source0:	https://openprinting.org/download/foomatic/%{name}-%{version}-%{release
 # Perl script to clean up Manufacturer entries in the PPD files, so that
 # drivers are sorted by the printer manufacturer in the graphical frontends
 Source2:	cleanppd.pl.bz2
+# Some extra printer drivers.
+# The files are taken from version 1.1.1 of the drivers found at
+# https://www.oki.com/us/printing/support/drivers-and-utilities/color/index.html
+# OKI wraps them in a zip file with a non-free click-through license, but all
+# the files contained in the file actually say they're GPL.
+# To comply with the license, we are not distributing the non-free zip file, but
+# instead all the GPL PPD files extracted from it.
+Source10:	OKI C332 PS.ppd.xz
+Source11:	OKI C532 PS.ppd.xz
+Source12:	OKI C542 PS.ppd.xz
+Source13:	OKI C612 PS.ppd.xz
+Source14:	OKI C712 PS.ppd.xz
+Source15:	OKI C833 PS.ppd.xz
+Source16:	OKI C843 PS.ppd.xz
+Source17:	OKI MC363 PS.ppd.xz
+Source18:	OKI MC563 PS.ppd.xz
+Source19:	OKI MC573 PS.ppd.xz
 Patch0:		foomatic-db-20100218-cp_argument_list_too_long.diff
 BuildArch:	noarch
 
@@ -173,15 +190,27 @@ for f in %{buildroot}%{_datadir}/foomatic/db/source/*/*.xml; do
 done
 chmod a-x %{buildroot}%{_datadir}/foomatic/db/oldprinterids
 
+# Add OKI printers
+mkdir -p %{buildroot}%{_datadir}/cups/model/oki
+cd %{buildroot}%{_datadir}/cups/model/oki
+cp "%{S:10}" "%{S:11}" "%{S:12}" "%{S:13}" "%{S:14}" "%{S:15}" "%{S:16}" "%{S:17}" "%{S:18}" "%{S:19}" .
+unxz *.ppd.xz
+# Some scripts may not like spaces in filenames
+for i in *.ppd; do
+	mv "$i" $(cat "$i" |grep PCFileName |cut -d'"' -f2 |tr A-Z a-z)
+done
+gzip -9 *.ppd
+cd -
+
 # Restart the CUPS daemon when it is running, but do not start it when it
 # is not running. The restart of the CUPS daemon updates the CUPS-internal
 # PPD index
 
 %post
-/sbin/service cups condrestart > /dev/null 2>/dev/null || :
+%{_bindir}/systemctl try-restart cups > /dev/null 2>/dev/null || :
 
 %postun
-/sbin/service cups condrestart > /dev/null 2>/dev/null || :
+%{_bindir}/systemctl try-restart cups > /dev/null 2>/dev/null || :
 
 %files
 %doc README USAGE COPYING
@@ -189,3 +218,4 @@ chmod a-x %{buildroot}%{_datadir}/foomatic/db/oldprinterids
 %{_datadir}/foomatic/db
 %{_datadir}/foomatic/xmlschema
 %{_datadir}/cups/model/foomatic-db-ppds
+%{_datadir}/cups/model/oki/*

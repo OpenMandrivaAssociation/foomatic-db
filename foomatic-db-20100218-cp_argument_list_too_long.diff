@@ -6,7 +6,7 @@
  	cp db/oldprinterids $(DESTDIR)$(LIBDIR)/db
 -	cp db/source/printer/*.xml $(DESTDIR)$(LIBDIR)/db/source/printer
 +	( cd db/source/printer/; \
-+	  for xml in `find -name "*.xml`; do \
++	  for xml in `find -name "*.xml"`; do \
 +	    cp $$xml $(DESTDIR)$(LIBDIR)/db/source/printer; \
 +	  done )
  	( cd db/source/driver/; \
