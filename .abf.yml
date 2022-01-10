@@ -1,6 +1,5 @@
 sources:
   cleanppd.pl.bz2: 893a7babf834e5e1d928739f90784a3b9651c527
-  foomatic-db-4.0-20210330.tar.xz: e6b40edb91fd72fe7bd3207da1f6a94071b80e06
   OKI C332 PS.ppd.xz: 7d92a5ad333b3d27e1f13e79a13c5133deab3b59
   OKI C532 PS.ppd.xz: 510746bc7dda75fd4b5fe6fd40abbdeea6234d4e
   OKI C542 PS.ppd.xz: 69f031ea65b17ffbd2cc7f9b51fe59de14cd35b5
@@ -11,3 +10,4 @@ sources:
   OKI MC363 PS.ppd.xz: 12bc2a674a57af43639a6850e13485771c591efa
   OKI MC563 PS.ppd.xz: 7b003c2d650499da858dc911919e03160a1879c4
   OKI MC573 PS.ppd.xz: d645091e54dc79bf962555e5636e7238be09672d
+  foomatic-db-4.0-20210824.tar.xz: eff09146bbd1f001a41fa4c09a11db83e279b3b4
