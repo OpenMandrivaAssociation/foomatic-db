@@ -7,7 +7,7 @@ Version:	4.0
 Release:	2.%releasedate.1
 License:	GPLv2 and MIT
 Group:		System/Servers
-Url:		http://www.linuxfoundation.org/collaborate/workgroups/openprinting/databasefoomatic
+Url:		https://www.linuxfoundation.org/collaborate/workgroups/openprinting/databasefoomatic
 Source0:	https://openprinting.org/download/foomatic/%{name}-%{version}-%{releasedate}.tar.xz
 # Perl script to clean up Manufacturer entries in the PPD files, so that
 # drivers are sorted by the printer manufacturer in the graphical frontends
