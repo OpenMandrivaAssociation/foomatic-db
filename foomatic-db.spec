@@ -32,6 +32,11 @@ Source19:	OKI MC573 PS.ppd.xz
 Patch0:		foomatic-db-20100218-cp_argument_list_too_long.diff
 BuildArch:	noarch
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	cups
 BuildRequires:	cups-common
 BuildRequires:	foomatic-db-engine
